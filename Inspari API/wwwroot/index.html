@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>To-do CRUD</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+    <h1>To-do</h1>
+    <h3>Add</h3>
+    <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
+        <input type="checkbox" id="add-completion" placeholder="Completed">
+        <input type="text" id="add-name" placeholder="Name">
+        <input type="text" id="add-desc" placeholder="Description">
+        <input type="datetime" id="add-deadline" placeholder="Deadline">
+        <input type="submit" value="Add">
+    </form>
+
+    <div id="editForm">
+        <h3>Edit</h3>
+        <form action="javascript:void(0);" onsubmit="updateItem()">
+            <input type="hidden" id="edit-id">
+            <input type="checkbox" id="edit-completion">
+            <input type="text" id="edit-name">
+            <input type="text" id="edit-desc">
+            <input type="text" id="edit-deadline">
+            <input type="submit" value="Save">
+            <a onclick="closeInput()" aria-label="Close">&#10006;</a>
+        </form>
+    </div>
+
+    <p id="counter"></p>
+    <form>
+        <input type="text" id="page-size" value="5" maxlength="1" size="1" onblur="getItems()" style="margin-right:20px; text-align: center;">
+        <input type="button" value="Previous" onclick="changePage(-1)">
+        <input type="text" id="page" value="1" maxlength="1" size="1" onblur="getItems()">
+        <input type="button" value="Next" onclick="changePage(1)">
+    </form>
+    <table>
+        <tr>
+            <th>Complete?</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>Deadline</th>
+            <th></th>
+            <th></th>
+
+        </tr>
+        <tbody id="todos"></tbody>
+    </table>
+
+    <script src="js/site.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        getItems();
+        _displayCount();
+    </script>
+
+
+    <script type="text/javascript">
+        var input = document.getElementById("page-size");
+
+        input.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                getItems();
+            }
+        });
+    </script>
+</body>
+</html>
